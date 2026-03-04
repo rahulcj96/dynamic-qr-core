@@ -1,0 +1,39 @@
+{
+  "name": "dynamic-qr-core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "prisma:generate": "npx prisma@5.10.2 generate",
+    "prisma:push": "npx prisma@5.10.2 db push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahulcj96/dynamic-qr-core.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rahulcj96/dynamic-qr-core/issues"
+  },
+  "homepage": "https://github.com/rahulcj96/dynamic-qr-core#readme",
+  "dependencies": {
+    "@fastify/type-provider-typebox": "^6.1.0",
+    "@sinclair/typebox": "^0.34.48",
+    "@types/qrcode": "^1.5.6",
+    "dotenv": "^17.3.1",
+    "fastify": "^5.7.4",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@prisma/client": "^5.10.2",
+    "@types/node": "^25.3.3",
+    "prisma": "^5.10.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
