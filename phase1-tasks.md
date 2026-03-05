@@ -1,43 +1,33 @@
 # Phase 1: Task List (The Core Engine)
 
-**Goal:** Build the MVP API for Dynamic QR Code generation and redirection.
-**Status:** Planning
+**Goal:** Build the MVP API for Dynamic QR Code generation and redirection using Fastify.
+**Status:** In Progress (Refactoring)
 
-## 1. Repository Setup
-- [ ] **Initialize NestJS Project:** Scaffold the project structure (`nest new`).
-- [ ] **Configure Linter/Prettier:** Ensure consistent code style.
-- [ ] **Setup Docker:** Create `docker-compose.yml` for PostgreSQL (and the app itself).
-- [ ] **Setup Environment Variables:** Create `.env.example` and validation schema (`joi` or `class-validator`).
+## 1. Core Setup (Completed)
+- [x] **Initialize Project:** Fastify + TypeScript setup.
+- [x] **Database:** PostgreSQL via Docker Compose.
+- [x] **ORM:** Prisma configured and schema defined.
+- [x] **Basic Validation:** TypeBox integration.
 
-## 2. Database Layer
-- [ ] **Install Prisma:** Add Prisma as a dev dependency.
-- [ ] **Define Schema:** Write `schema.prisma` matching the Phase 1 Spec (`User`, `Redirect` tables).
-- [ ] **Generate Client:** Run `prisma generate`.
-- [ ] **Migration Script:** Create the initial migration (`prisma migrate dev`).
+## 2. Refactoring (Current Focus)
+- [ ] **Modular Structure:** Split `index.ts` into modules.
+    - [ ] `src/config/`: Environment configuration.
+    - [ ] `src/modules/qr/`: Routes and Service for QR generation.
+    - [ ] `src/modules/redirect/`: Routes and Service for redirection.
+    - [ ] `src/app.ts`: App factory/setup.
+    - [ ] `src/index.ts`: Entry point.
+- [ ] **Error Handling:** Add a global error handler.
+- [ ] **Slug Collision:** Handle unique constraint violations gracefully (retry logic).
 
-## 3. Module: Redirects (Public)
-- [ ] **Create Module:** `nest g module redirects`.
-- [ ] **DTOs:** Define `RedirectResponseDto`.
-- [ ] **Service - Lookup:** Implement `findBySlug(slug)` using Prisma.
-- [ ] **Service - Analytics:** Implement `incrementClicks(slug)` (async/fire-and-forget).
-- [ ] **Controller:** Implement `GET /:slug` endpoint.
-    - [ ] Logic: Lookup -> If found, Redirect (302) -> If not, 404.
+## 3. Features (MVP)
+- [x] **QR Generation:** `POST /api/v1/qr`
+- [x] **Redirection:** `GET /:slug`
+- [x] **Analytics:** Basic click counting.
 
-## 4. Module: QR Generation (Protected/Internal)
-- [ ] **Create Module:** `nest g module qr`.
-- [ ] **DTOs:** Define `CreateQrDto` (url, slug?) and `QrResponseDto`.
-- [ ] **Service - Slug Gen:** Implement `generateUniqueSlug()` (using `nanoid` or similar).
-- [ ] **Service - QR Gen:** Implement `generateQrImage(url)` (using `qrcode` lib).
-- [ ] **Service - Create:** Implement `createRedirect(url)` transaction (DB insert).
-- [ ] **Controller:** Implement `POST /api/v1/qr` endpoint.
+## 4. Testing
+- [ ] **Unit Tests:** Test services in isolation.
+- [ ] **Integration Tests:** Test API endpoints using `fastify.inject()`.
 
-## 5. Testing
-- [ ] **Unit Tests:** Test Slug Generation (collision handling).
-- [ ] **E2E Tests:**
-    - [ ] Create QR -> Verify 201.
-    - [ ] Access Slug -> Verify 302 Redirect.
-    - [ ] Access Invalid Slug -> Verify 404.
-
-## 6. Documentation
-- [ ] **Swagger/OpenAPI:** Add decorators (`@ApiProperty`, `@ApiOperation`) to controllers.
-- [ ] **README:** Update with "How to Run".
+## 5. Documentation
+- [x] **README:** Basic setup instructions.
+- [ ] **API Docs:** Swagger/OpenAPI (Fastify Swagger).
